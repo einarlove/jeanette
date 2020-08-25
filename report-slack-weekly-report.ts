@@ -17,8 +17,8 @@ async function run() {
   const timeTracked = await powerOfficeRequest<PowerOfficeTimeTransaction[]>(
     'Reporting/TimeTransactions',
     {
-      fromDate: format(startOfWeek(new Date('2020-08-22')), 'yyy-MM-dd'),
-      toDate: format(new Date('2020-08-22'), 'yyy-MM-dd'),
+      fromDate: format(startOfWeek(new Date()), 'yyy-MM-dd'),
+      toDate: format(new Date(), 'yyy-MM-dd'),
       $filter: "(StatusFlags eq '0')",
     }
   )
