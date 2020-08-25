@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "A bot replacing Jeanett's job of reminding people of missing hours tracked",
   "scripts": {
-    "start": "ts-node -r dotenv/config index.ts",
-    "dev": "nodemon --exec npm start index.ts"
+    "report-slack-weekly": "ts-node -r dotenv/config report-slack-weekly-report.ts",
+    "report-slack-weekly:dev": "nodemon --exec npm run report-slack-weekly index.ts"
   },
   "prettier": {
     "semi": false,
