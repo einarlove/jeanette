@@ -80,7 +80,9 @@ ${sortBy(times, 'date')
   .map(
     time => `*${upperFirst(
       format(new Date(time.date), 'EEEE', { locale: nbLocale })
-    )}* · _${time.projectName}_
+    )}* · _${time.projectName}, ${time.hours} ${
+      time.hours >= 2 ? 'timer' : 'time'
+    }_
 ${time.comment || 'Uten kommentar'}
 `
   )
