@@ -1,5 +1,5 @@
 {
-  "name": "jeanett-3000",
+  "name": "jeanette",
   "version": "1.0.0",
   "description": "A bot replacing Jeanett's job of reminding people of missing hours tracked",
   "scripts": {
@@ -22,10 +22,12 @@
     "form-urlencoded": "^4.2.1",
     "lodash": "^4.17.20",
     "node-fetch": "^2.6.0",
-    "nodemon": "^2.0.4",
-    "prettier": "^2.0.5",
     "slack": "^11.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.1"
   }
 }
