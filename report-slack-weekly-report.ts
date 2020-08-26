@@ -23,6 +23,8 @@ async function run() {
     }
   )
 
+  console.log(timeTracked.length, 'time tracked')
+
   for await (const [employeeCode, times] of Object.entries(
     groupBy(timeTracked, 'employeeCode')
   )) {
