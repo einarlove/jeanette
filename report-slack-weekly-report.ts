@@ -39,22 +39,25 @@ async function run() {
     )
 
     if (slackMember) {
-      try {
-        if (process.env.DRY_RUN === 'true') {
-          console.log(
-            `Dry run for ${slackMember.name}: \n`,
-            getSlackMessage(slackMember, times)
+      if (process.env.DRY_RUN === 'true') {
+        console.log(
+          `Dry run for ${slackMember.name} ${slackMember.id}: \n`,
+          getSlackMessage(slackMember, times)
+        )
+      } else {
+        try {
+          const forwardTo = slackMembers.find(
+            member => member.name === process.env.FORWARD_TO
           )
-        } else {
           await slack.chat.postMessage({
-            channel: slackMember.id,
+            channel: forwardTo?.id || slackMember.id,
             text: getSlackMessage(slackMember, times),
             token: process.env.SLACK_TOKEN,
           })
+          console.log('Slack message sent:', slackMember.name)
+        } catch {
+          console.log('Slack message failed:', slackMember.name)
         }
-        console.log('Slack message sent: ', slackMember.name)
-      } catch {
-        console.log('Slack message failed: ', slackMember.name)
       }
     } else {
       console.log(
@@ -80,7 +83,7 @@ ${sortBy(times, 'date')
   .map(
     time => `*${upperFirst(
       format(new Date(time.date), 'EEEE', { locale: nbLocale })
-    )}* · _${time.projectName}, ${time.hours} ${
+    )}* · _${time.projectName || time.activityName}, ${time.hours} ${
       time.hours >= 2 ? 'timer' : 'time'
     }_
 ${time.comment || 'Uten kommentar'}
