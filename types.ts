@@ -53,6 +53,7 @@ export type SlackMember = {
     display_name: string
     real_name_normalized: string
     display_name_normalized: string
+    first_name: string
     email: string
     image_24: string
     image_32: string
