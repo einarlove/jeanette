@@ -53,6 +53,7 @@ Vær fornøyd med god insats. Kiss Kiss 💋
     })
 }
 
-if (formatDate(new Date(), 'EEEE') === 'søndag') {
+const today = formatDate(new Date(), 'EEEE')
+if (process.env.NODE_ENV !== 'production' || today === 'søndag') {
   run()
 }
