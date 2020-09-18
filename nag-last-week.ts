@@ -3,6 +3,8 @@ import powerOfficeRequest from './powerOfficeRequest'
 import { PowerOfficeTimeTransaction } from './types'
 import { formatDate, getTimeTrackedByEmployee, reportToSlack } from './helpers'
 
+const today = formatDate(new Date(), 'EEEE')
+
 async function run() {
   const yeasterday = subDays(new Date(), 1)
   const timeTracked = await powerOfficeRequest<PowerOfficeTimeTransaction[]>(
@@ -25,4 +27,6 @@ async function run() {
     })
 }
 
-run()
+if (formatDate(new Date(), 'EEEE') === 'mandag') {
+  run()
+}

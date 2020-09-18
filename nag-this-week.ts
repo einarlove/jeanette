@@ -53,4 +53,6 @@ Vær fornøyd med god insats. Kiss Kiss 💋
     })
 }
 
-run()
+if (formatDate(new Date(), 'EEEE') === 'søndag') {
+  run()
+}
