@@ -26,10 +26,6 @@ async function run() {
   timesByEmployee
     .filter(({ member }) => member)
     .map(({ member, times }) => {
-      console.log(
-        member.name,
-        times.map(({ date }) => date)
-      )
       reportToSlack(
         member,
         `🙈 Eeek! timene for forrige uke er ikke godkjent. Kunne du ordna det?`
