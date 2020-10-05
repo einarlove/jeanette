@@ -59,8 +59,8 @@ Vær fornøyd med god insats. Kiss Kiss 💋
 }
 
 const today = formatDate(new Date(), 'EEEE')
-if (process.env.NODE_ENV !== 'production' || today === 'søndag') {
+if (process.env.NODE_ENV !== 'production' || today === 'mandag') {
   run()
 } else {
-  console.log('Not', today, 'today')
+  console.log(today, 'is not', 'mandag')
 }
