@@ -36,4 +36,6 @@ async function run() {
 const today = formatDate(new Date(), 'EEEE')
 if (process.env.NODE_ENV !== 'production' || today === 'mandag') {
   run()
+} else {
+  console.log('Not', today, 'today')
 }
