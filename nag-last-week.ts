@@ -25,7 +25,7 @@ async function run() {
 
   timesByEmployee
     .filter(({ member }) => member)
-    .map(({ member, times }) => {
+    .map(({ member }) => {
       reportToSlack(
         member,
         `🙈 Eeek! timene for forrige uke er ikke godkjent. Kunne du ordna det?`
@@ -33,9 +33,11 @@ async function run() {
     })
 }
 
+const dayToRun = 'mandag'
 const today = formatDate(new Date(), 'EEEE')
-if (process.env.NODE_ENV !== 'production' || today === 'mandag') {
+
+if (process.env.NODE_ENV !== 'production' || today === dayToRun) {
   run()
 } else {
-  console.log('Not', today, 'today')
+  console.log(today, 'is not', dayToRun)
 }
