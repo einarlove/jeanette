@@ -67,8 +67,12 @@ export const reportToSlack = async (
           }
         : {}),
     })
-    console.log('Slack message sent:', member.name)
+    console.log(
+      'Slack message sent to',
+      member.name,
+      harass ? 'with harassment' : ''
+    )
   } catch {
-    console.log('Slack message failed:', member.name)
+    console.log('Slack message failed for', member.name)
   }
 }
