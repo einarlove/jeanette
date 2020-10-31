@@ -33,37 +33,32 @@ async function run() {
     const missingDays = weekdays.filter(
       weekday => !daysWithTimeTracked.includes(weekday)
     )
+    const getWrathFromTanja = process.env.TANJA_IDS?.includes(member.id)
+    const daysString = missingDays.join(', ').replace(/,(?!.*,)/gim, ' og')
 
-    if (hasUnapprovedTimes) {
-      console.log(
-        memberName,
-        times.filter(time => time.statusFlags === 0)
+    if (getWrathFromTanja && (missingDays.length || hasUnapprovedTimes)) {
+      reportToSlack(
+        member,
+        `Fy faen, ${memberName}! Ditt inkompetente rævhøl.
+Ikke klarer du en så enkel oppgave som å ${
+          missingDays.length
+            ? 'føre timene dine som du har fått streng beskjed om. Legg inn de manglende timene for torsdag og fredag'
+            : 'godkjenne timene dine før uka er slutt'
+        }. Fiks det eller så graver jeg deg et nytt rasshøl, plassere øya dine i bakhuet og fister deg med en børste. Dere søringer kan jo faen meg ingenting.`,
+        true
       )
-    }
-
-    if (missingDays.length) {
-      const daysString = missingDays.join(', ').replace(/,(?!.*,)/gim, ' og')
-      const emptyString = missingDays.length > 1 ? 'tomme' : 'tom'
+    } else if (missingDays.length) {
       reportToSlack(
         member,
         `
-Kjære ${memberName}, håper du har hatt en deilig helg. Noe du av alle virkelig fortjener.
-${
-  hasUnapprovedTimes ? 'Du har noen timer ikke godkjent, og jeg' : 'Jeg'
-} lurte på om det var noen timer denne uken som manglet å bli timeført?
-Jeg ser at ${daysString} er ${emptyString}, så hvis du har skapt litt magi så synes jeg vi skal få betalt for det 😘
-
-Kos deg resten av kvelden med din kjære ❤️
-      `
+  Hei ${memberName}!
+  Du har noen timer ikke godkjent og det kan være noen timer denne uken som mangler å bli timeført. For eksempel er ${daysString} uten førte timer.
+        `
       )
     } else if (hasUnapprovedTimes) {
       reportToSlack(
         member,
-        `
-For en uke, ${memberName}! Ikke tvil om at du leverer. Kunne du gått inn på <https://go.poweroffice.net/#timetracking/timesheet|PowerOffice> og godkjent timene dine så det er på plass?
-
-Vær fornøyd med god insats. Kiss Kiss 💋
-      `
+        `Liten påminnelse om at timene for denne uken mangler godkjennelse. Ha en fin søndagskveld, ${memberName}.`
       )
     } else {
       console.log('Skip', memberName)

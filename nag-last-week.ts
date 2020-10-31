@@ -26,10 +26,22 @@ async function run() {
   timesByEmployee
     .filter(({ member }) => member)
     .map(({ member }) => {
-      reportToSlack(
-        member,
-        `🙈 Eeek! timene for forrige uke er ikke godkjent. Kunne du ordna det?`
-      )
+      const getWrathFromTanja = process.env.TANJA_IDS?.includes(member.id)
+      const memberName =
+        member.profile.display_name || member.profile.first_name
+      if (getWrathFromTanja) {
+        reportToSlack(
+          member,
+          `Satan som jeg må mase!
+GODKJENN TIMENE DINE!`,
+          true
+        )
+      } else {
+        reportToSlack(
+          member,
+          `Timene er fortsatt ikke godkjente. Nå føler jeg meg som en masehøne, ${memberName} 😣`
+        )
+      }
     })
 }
 

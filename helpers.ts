@@ -43,11 +43,15 @@ export const getTimeTrackedByEmployee = async (
   )
 }
 
-export const reportToSlack = async (member: SlackMember, message: string) => {
+export const reportToSlack = async (
+  member: SlackMember,
+  message: string,
+  harass?: boolean
+) => {
   if (process.env.DRY_RUN)
     return console.log(
       `\n\x1b[30m\x1b[47mDry run for ${member.name} ${member.id}: \x1b[0m\n`,
-      message
+      message.trim()
     )
 
   try {
@@ -55,6 +59,13 @@ export const reportToSlack = async (member: SlackMember, message: string) => {
       channel: process.env.FORWARD_TO || member.id,
       text: message.trim(),
       token: process.env.SLACK_TOKEN,
+      ...(harass
+        ? {
+            username: 'Tanja Laila Gaup',
+            icon_url:
+              'https://res.cloudinary.com/unfold/image/upload/w_150,h_150,c_fill/v1604158367/tanja_cvkocj.jpg',
+          }
+        : {}),
     })
     console.log('Slack message sent:', member.name)
   } catch {
