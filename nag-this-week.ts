@@ -42,7 +42,7 @@ async function run() {
         `Fy faen, ${memberName}! Ditt inkompetente rævhøl.
 Ikke klarer du en så enkel oppgave som å ${
           missingDays.length
-            ? 'føre timene dine som du har fått streng beskjed om. Legg inn de manglende timene for torsdag og fredag'
+            ? `føre timene dine som du har fått streng beskjed om. Legg inn de manglende timene for ${daysString}`
             : 'godkjenne timene dine før uka er slutt'
         }. Fiks det eller så graver jeg deg et nytt rasshøl, plassere øya dine i bakhuet og fister deg med en børste. Dere søringer kan jo faen meg ingenting.`,
         true
